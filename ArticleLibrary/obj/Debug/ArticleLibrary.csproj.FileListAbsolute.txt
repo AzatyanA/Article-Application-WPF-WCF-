@@ -1,0 +1,6 @@
+D:\WCF проекты\ArticleWpfApp\ArticleLibrary\bin\Debug\ArticleLibrary.dll.config
+D:\WCF проекты\ArticleWpfApp\ArticleLibrary\bin\Debug\ArticleLibrary.dll
+D:\WCF проекты\ArticleWpfApp\ArticleLibrary\bin\Debug\ArticleLibrary.pdb
+D:\WCF проекты\ArticleWpfApp\ArticleLibrary\obj\Debug\ArticleLibrary.csproj.CoreCompileInputs.cache
+D:\WCF проекты\ArticleWpfApp\ArticleLibrary\obj\Debug\ArticleLibrary.dll
+D:\WCF проекты\ArticleWpfApp\ArticleLibrary\obj\Debug\ArticleLibrary.pdb

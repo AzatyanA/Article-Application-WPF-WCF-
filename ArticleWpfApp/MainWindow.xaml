@@ -1,0 +1,124 @@
+﻿<Window x:Class="ArticleWpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:ArticleWpfApp"
+        xmlns:local1="clr-namespace:ArticleWpfApp.ViewModels"
+        xmlns:conv="clr-namespace:ArticleWpfApp.Converters"      
+        mc:Ignorable="d"
+        Title="Article" Width="1000" Height="750">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding Logoff}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <conv:ReplyModeToVisibilityConv x:Key="ReplyModeToVisibility"/>
+        <conv:LogonConv x:Key="LogonConverter"/>
+        <conv:ErrorToVisibilityConv x:Key="ErrorToVisibility"/>
+        <Style TargetType="{x:Type TreeViewItem}">
+            <Setter Property="IsExpanded" Value="True" />
+        </Style>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Width" Value="120" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="20,5,0,5" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="20,0,0,5" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        </Style>
+        <ControlTemplate TargetType="{x:Type TextBox}" x:Key="MessageTemplate">
+            <Border x:Name="Border" BorderBrush="Black" BorderThickness="1" CornerRadius="2" Padding="2">
+                <Grid>
+                    <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                        <TextBlock Visibility="Hidden" x:Name="WatermarkText" FontStyle="Italic"  Foreground="#dddddd"
+                             Text="What do you think about this?" />
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter Property="Visibility" TargetName="WatermarkText" Value="Visible"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate TargetType="{x:Type TextBox}" x:Key="ReplyTemplate">
+            <Border x:Name="Border" BorderBrush="Black" BorderThickness="1" CornerRadius="2" Padding="2">
+                <Grid>
+                    <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                    <TextBlock Visibility="Hidden" x:Name="WatermarkText" FontStyle="Italic"  Foreground="#dddddd"
+                             Text="Type your reply here..." />
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter Property="Visibility" TargetName="WatermarkText" Value="Visible"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+    </Window.Resources>
+    <Window.DataContext>
+        <local1:MainViewModel></local1:MainViewModel>
+    </Window.DataContext>
+    <Grid Background="Azure"  >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="It's interesting!" Margin="20" Padding="3">
+            <TextBlock Text="{Binding Article}" FontSize="12"/>
+        </GroupBox>
+        <StackPanel Grid.Row="1">
+            <Label Content="UserName"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding UserName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" IsReadOnly="{Binding LogonSucceed}" Width="150" Height="25"/>
+                <Button Command="{Binding Logon}" IsEnabled="{Binding LogonSucceed, Converter={StaticResource LogonConverter}}" Content="Logon" Width="70" Height="25" VerticalAlignment="Top"/>
+            </StackPanel>
+            <Label Content="Message" />
+            <StackPanel Orientation="Horizontal">
+                <TextBox Template="{StaticResource MessageTemplate}" Text="{Binding MessageContent, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" Width="500" AllowDrop="True" Height="50"  VerticalContentAlignment="Top" AcceptsReturn="True" AcceptsTab="True"/>
+                <TextBox Visibility="{Binding Error, Converter={StaticResource ErrorToVisibility}}" Width="auto" Background="Yellow" Text="{Binding Error}" FontWeight="Bold" Foreground="Red"/>
+            </StackPanel>
+            <Button Command="{Binding SendMessage}" Content="Send" Width="120" Height="25" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+            <TreeView Grid.Row="1" ItemsSource="{Binding Path=MessagesColl}" x:Name="treeView1" Width="800" MaxHeight="270"  HorizontalAlignment="Left" Margin="20,20,0,20">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Comments}" >
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Author}" FontSize="13" FontWeight="Bold" Margin="0,1,13,1"/>
+                                <TextBlock Text="{Binding Date, StringFormat={}{0:f}}" VerticalAlignment="Center"  FontSize="10"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding Content}" />
+                            <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Reply}"
+                                CommandParameter="{Binding Header, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type TreeViewItem}}}" 
+                                Content="Reply" Height="20" Width="50" HorizontalAlignment="Right" />
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding IsReplyModeOn, Mode=OneWay,Converter={StaticResource ReplyModeToVisibility}}" >
+                                <TextBox Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.ReplyContent, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" Template="{StaticResource ReplyTemplate}" MinHeight="20" Height="30" Width="130" Margin="20,3,3,3"/>
+                                <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SendReply}" Content="Send" Height="20" Width="50" HorizontalAlignment="Right" />
+                            </StackPanel>
+                        </StackPanel>
+
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+                <TreeView.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                      Color="Transparent" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
+                      Color="Black" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                      Color="Transparent" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                      Color="Black" />
+                </TreeView.Resources>
+            </TreeView>
+        </StackPanel>
+       
+       
+      
+    </Grid>
+</Window>
