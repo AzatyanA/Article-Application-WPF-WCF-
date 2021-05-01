@@ -31,6 +31,24 @@ namespace ArticleLibrary
       
         public string GetMessagesColStr()
         {
+            //if (MessagesCol.Count == 0)
+            //{
+            //    var com1 = new Message { Id=Guid.NewGuid(), Author = "Artyom", Content = "This is my comment", Date = DateTime.Now };
+            //    var com2 = new Message { Id = Guid.NewGuid(), Author = "Victor", Content = "It's great!", Date = DateTime.Now };
+
+            //    com1.Comments = new List<Message>();
+            //    com1.Comments.Add(com2);
+
+            //    var com3 = new Message { Id = Guid.NewGuid(), Author = "New", Content = "wow!", Date = DateTime.Now };
+            //    com2.Comments = new List<Message>();
+            //    com2.Comments.Add(com3);
+
+            //    var com4 = new Message { Id = Guid.NewGuid(), Author = "Forth", Content = "Weee!", Date = DateTime.Now };
+            //    com3.Comments = new List<Message>();
+            //    com3.Comments.Add(com4);
+
+            //    MessagesCol.Add(com1);
+            //}
             XmlSerializer serializer = new XmlSerializer(typeof(List<Message>));
 
             var stringwriter = new System.IO.StringWriter();
@@ -51,18 +69,34 @@ namespace ArticleLibrary
 
         public void SendReplyMessage(Message message, Guid id)
         {
-            var mes = MessagesCol.FirstOrDefault(x => x.Id == id);
-            if (mes != null)
+            ReturnMessage(MessagesCol, id);
+            if (checkedMessage != null)
             {
-                if (mes.Comments == null)
-                {
-                    mes.Comments = new List<Message>();
-                }
-                mes.Comments.Add(message);
+                message.Id = Guid.NewGuid();
+                if (checkedMessage.Comments == null) checkedMessage.Comments = new List<Message>();
+                checkedMessage.Comments.Add(message);
 
                 foreach (var user in Users)
                 {
                     user.OperationContext.GetCallbackChannel<IArticleServiceCallback>().ReceiveMessageCollectionStr(this.GetMessagesColStr());
+                }
+                checkedMessage = null;
+            }
+        }
+        private Message checkedMessage;
+
+        private void ReturnMessage(List<Message> list, Guid id)
+        {
+            foreach (var item in list)
+            {
+                if (item.Id == id)
+                {
+                    checkedMessage = item;
+                    return;
+                }
+                if (item.Comments != null)
+                {
+                    ReturnMessage(item.Comments, id);
                 }
             }
         }

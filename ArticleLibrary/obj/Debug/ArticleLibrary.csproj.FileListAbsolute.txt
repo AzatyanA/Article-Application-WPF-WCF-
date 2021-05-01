@@ -4,3 +4,9 @@ D:\WCF проекты\ArticleWpfApp\ArticleLibrary\bin\Debug\ArticleLibrary.pdb
 D:\WCF проекты\ArticleWpfApp\ArticleLibrary\obj\Debug\ArticleLibrary.csproj.CoreCompileInputs.cache
 D:\WCF проекты\ArticleWpfApp\ArticleLibrary\obj\Debug\ArticleLibrary.dll
 D:\WCF проекты\ArticleWpfApp\ArticleLibrary\obj\Debug\ArticleLibrary.pdb
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleLibrary\bin\Debug\ArticleLibrary.dll.config
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleLibrary\bin\Debug\ArticleLibrary.dll
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleLibrary\bin\Debug\ArticleLibrary.pdb
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleLibrary\obj\Debug\ArticleLibrary.csproj.CoreCompileInputs.cache
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleLibrary\obj\Debug\ArticleLibrary.dll
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleLibrary\obj\Debug\ArticleLibrary.pdb

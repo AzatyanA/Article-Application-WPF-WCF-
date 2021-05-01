@@ -9,3 +9,14 @@ D:\WCF проекты\ArticleWpfApp\ArticleHost\obj\Debug\ArticleHost.csproj.Cor
 D:\WCF проекты\ArticleWpfApp\ArticleHost\obj\Debug\ArticleHost.csproj.CopyComplete
 D:\WCF проекты\ArticleWpfApp\ArticleHost\obj\Debug\ArticleHost.exe
 D:\WCF проекты\ArticleWpfApp\ArticleHost\obj\Debug\ArticleHost.pdb
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleHost\bin\Debug\ArticleHost.exe.config
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleHost\bin\Debug\ArticleHost.exe
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleHost\bin\Debug\ArticleHost.pdb
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleHost\bin\Debug\ArticleLibrary.dll
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleHost\bin\Debug\ArticleLibrary.pdb
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleHost\bin\Debug\ArticleLibrary.dll.config
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleHost\obj\Debug\ArticleHost.csprojAssemblyReference.cache
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleHost\obj\Debug\ArticleHost.csproj.CoreCompileInputs.cache
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleHost\obj\Debug\ArticleHost.csproj.CopyComplete
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleHost\obj\Debug\ArticleHost.exe
+D:\WCF проекты\Article_WPF_WCF\Article-Application-WPF-WCF-\ArticleHost\obj\Debug\ArticleHost.pdb

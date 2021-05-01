@@ -109,7 +109,7 @@ namespace ArticleWpfApp.Models
                     Date = item.Date
                 };
 
-                if (item.Comments != null) newItem.Comments = Convert(item.Comments);
+                if (item.Comments != null)
                 {                  
                     newItem.Comments = Convert(item.Comments);
                 }
