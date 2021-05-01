@@ -273,6 +273,11 @@ namespace ArticleWpfApp.ViewModels
                 var ent = obj as MessageClient;
                 if (ent != null)
                 {
+                    if (ent.Author==UserName)
+                    {
+                        Error = "Sorry, you can't reply on your own comments.";
+                        return;
+                    }
                     if (CheckedComment != null)
                     {
                         if (CheckedComment.IsReplyModeOn) CheckedComment.IsReplyModeOn = false;
